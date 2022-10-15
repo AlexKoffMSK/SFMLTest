@@ -1,2 +1,2 @@
 # SFMLTest
-Testing somme sfml 
+Testing some sfml works
