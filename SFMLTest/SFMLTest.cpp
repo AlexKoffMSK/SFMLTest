@@ -6,7 +6,7 @@
 #include <conio.h>
 #include <cmath>
 
-
+/*
 void DrawFrame(sf::RenderWindow& window, sf::CircleShape& shape)
 {
     window.clear();
@@ -198,7 +198,7 @@ void RandomMoving(sf::RenderWindow& window, sf::CircleShape& shape, float& step_
         }
     }
 }
-
+*/
 
 int main()
 {
