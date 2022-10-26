@@ -26,18 +26,18 @@ void MoveToMouse(sf::RenderWindow& window, sf::CircleShape& shape)
     DrawFrame(window, shape);
 }
 
-sf::Vector2f new_pos(double &angle_degree, sf::Vector2f cur_pos, double speed)
+sf::Vector2f new_pos(double& angle_degree, sf::CircleShape& shape, double& speed)
 {
     double angle_rad = angle_degree * (PI / 180.0);
     double dx = cos(angle_rad);
     double dy = sin(angle_rad);
     sf::Vector2f new_pos;
     sf::Vector2f pos_move;
-    new_pos.x = cur_pos.x + dx * speed_x;
-    new_pos.y = cur_pos.y + dy * speed_y;
+    new_pos.x = shape.getPosition().x + dx * speed_x;
+    new_pos.y = shape.getPosition().y + dy * speed_y;
 
-    pos_move.x = cur_pos.x + (new_pos.x - cur_pos.x) / std::sqrt( std::powf(new_pos.x - cur_pos.x, 2) + std::powf(new_pos.y - cur_pos.y,2) ) * speed;
-    pos_move.y = cur_pos.y + (new_pos.y - cur_pos.y) / std::sqrt( std::powf(new_pos.x - cur_pos.x, 2) + std::powf(new_pos.y - cur_pos.y,2) ) * speed;
+    pos_move.x = shape.getPosition().x + (new_pos.x - shape.getPosition().x) / std::sqrt( std::powf(new_pos.x - shape.getPosition().x, 2) + std::powf(new_pos.y - shape.getPosition().y,2) ) * speed;
+    pos_move.y = shape.getPosition().y + (new_pos.y - shape.getPosition().y) / std::sqrt( std::powf(new_pos.x - shape.getPosition().x, 2) + std::powf(new_pos.y - shape.getPosition().y,2) ) * speed;
     
     return pos_move;
 }
@@ -341,7 +341,8 @@ int main()
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
-                new_pos(angle, circ_shape, speed_x);
+                sf::Vector2f new_position = new_pos(angle, circ_shape, speed_x);
+                circ_shape.setPosition(new_position);
             }
         }
         
