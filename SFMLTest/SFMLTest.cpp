@@ -7,9 +7,9 @@
 #include <cmath>
 
 const double PI = 3.14159265359;
-double speed_x = 8;
+double speed_x = 4;
 double speed_y = speed_x;
-double angle = 30;
+double angle = 180;
 
 void DrawFrame(sf::RenderWindow& window, sf::CircleShape& shape)
 {
@@ -26,9 +26,9 @@ void MoveToMouse(sf::RenderWindow& window, sf::CircleShape& shape)
     DrawFrame(window, shape);
 }
 
-sf::Vector2f new_pos(double& angle_degree, sf::CircleShape& shape, double& speed)
+sf::Vector2f new_pos(double& angle_degree, sf::CircleShape& shape, double& speed, sf::RenderWindow& window)
 {
-    double angle_rad = angle_degree * (PI / 180.0);
+    double angle_rad = angle_degree * (-1) * (PI / 180.0);
     double dx = cos(angle_rad);
     double dy = sin(angle_rad);
     sf::Vector2f new_pos;
@@ -36,8 +36,8 @@ sf::Vector2f new_pos(double& angle_degree, sf::CircleShape& shape, double& speed
     new_pos.x = shape.getPosition().x + dx * speed_x;
     new_pos.y = shape.getPosition().y + dy * speed_y;
 
-    pos_move.x = shape.getPosition().x + (new_pos.x - shape.getPosition().x) / std::sqrt( std::powf(new_pos.x - shape.getPosition().x, 2) + std::powf(new_pos.y - shape.getPosition().y,2) ) * speed;
-    pos_move.y = shape.getPosition().y + (new_pos.y - shape.getPosition().y) / std::sqrt( std::powf(new_pos.x - shape.getPosition().x, 2) + std::powf(new_pos.y - shape.getPosition().y,2) ) * speed;
+    pos_move.x = shape.getPosition().x + (new_pos.x - shape.getPosition().x) / std::sqrt(std::powf(new_pos.x - shape.getPosition().x, 2) + std::powf(new_pos.y - shape.getPosition().y, 2)) * speed;
+    pos_move.y = shape.getPosition().y + (new_pos.y - shape.getPosition().y) / std::sqrt(std::powf(new_pos.x - shape.getPosition().x, 2) + std::powf(new_pos.y - shape.getPosition().y, 2)) * speed;
     
     return pos_move;
 }
@@ -341,7 +341,7 @@ int main()
 
             if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
             {
-                sf::Vector2f new_position = new_pos(angle, circ_shape, speed_x);
+                sf::Vector2f new_position = new_pos(angle, circ_shape, speed_x, window);
                 circ_shape.setPosition(new_position);
             }
         }
